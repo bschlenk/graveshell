@@ -1,3 +1,5 @@
-import { getMessage } from './utils';
+import { processTag } from './tag';
 
-console.log(getMessage());
+export function tag(strings: TemplateStringsArray, ...keys: any[]) {
+  return processTag(strings, keys);
+}
