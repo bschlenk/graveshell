@@ -33,8 +33,8 @@ function splitString(str: string) {
   const whiteEnd = /\s$/.test(str);
 
   // special case, if string is all whitespace, we want to split it to an
-  // empty array instead of ['', '']
-  const split = /^\s+$/.test(str) ? [] : str.trim().split(/\s+/g);
+  // empty array instead of ['']
+  const split = isWhitespace(str) ? [] : str.trim().split(/\s+/g);
 
   return [split, whiteStart, whiteEnd] as const;
 }
@@ -54,10 +54,14 @@ function concat(into: string[], strs: string[], combineEdge: boolean) {
   }
 }
 
-const extendLastElement = (arr: string[], ext: string) => {
+function extendLastElement(arr: string[], ext: string) {
   if (arr.length === 0) {
     arr.push(ext);
   } else {
     arr[arr.length - 1] = arr[arr.length - 1] + ext;
   }
-};
+}
+
+function isWhitespace(str: string): boolean {
+  return /^\s+$/.test(str);
+}
