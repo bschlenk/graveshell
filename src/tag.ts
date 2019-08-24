@@ -22,6 +22,12 @@ export function processTag(strings: TemplateStringsArray, keys: any[]) {
   return args;
 }
 
+/**
+ * Split a string on whitespace, ignoring any leading and trailing whitespace.
+ * Returns an array where the first element is the split elements, the second is
+ * a boolean indicating whether the string started with whitespace, and the
+ * third indicating whether the string ended with whitespace.
+ */
 function splitString(str: string) {
   const whiteStart = /^\s/.test(str);
   const whiteEnd = /\s$/.test(str);
@@ -33,6 +39,11 @@ function splitString(str: string) {
   return [split, whiteStart, whiteEnd] as const;
 }
 
+/**
+ * Combines `into` and `strs`, modifying `into`. If `combineEdge` is true, then
+ * the last element of `into` and the first element of `strs` will be combined
+ * into one string.
+ */
 function concat(into: string[], strs: string[], combineEdge: boolean) {
   if (combineEdge) {
     const [first, ...rest] = strs;
