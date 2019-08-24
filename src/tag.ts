@@ -1,8 +1,14 @@
-export function tag(strings: TemplateStringsArray, ...keys: any[]) {
+export function tag(
+  strings: TemplateStringsArray,
+  ...keys: unknown[]
+): string[] {
   return processTag(strings, keys);
 }
 
-export function processTag(strings: TemplateStringsArray, keys: any[]) {
+export function processTag(
+  strings: TemplateStringsArray,
+  keys: unknown[],
+): string[] {
   const len = strings.length;
   const args: string[] = [];
 
@@ -15,7 +21,7 @@ export function processTag(strings: TemplateStringsArray, keys: any[]) {
     // There will always be 1 more string than there are keys, so when iterating
     // over the strings, the last key will be undefined.
     if (key !== undefined) {
-      concat(args, [key], !whiteEnd);
+      concat(args, [key as string], !whiteEnd);
     }
   }
 
@@ -28,7 +34,7 @@ export function processTag(strings: TemplateStringsArray, keys: any[]) {
  * a boolean indicating whether the string started with whitespace, and the
  * third indicating whether the string ended with whitespace.
  */
-function splitString(str: string) {
+function splitString(str: string): readonly [string[], boolean, boolean] {
   const whiteStart = /^\s/.test(str);
   const whiteEnd = /\s$/.test(str);
 
@@ -44,7 +50,7 @@ function splitString(str: string) {
  * the last element of `into` and the first element of `strs` will be combined
  * into one string.
  */
-function concat(into: string[], strs: string[], combineEdge: boolean) {
+function concat(into: string[], strs: string[], combineEdge: boolean): void {
   if (combineEdge) {
     const [first, ...rest] = strs;
     extendLastElement(into, first);
@@ -54,7 +60,7 @@ function concat(into: string[], strs: string[], combineEdge: boolean) {
   }
 }
 
-function extendLastElement(arr: string[], ext: string) {
+function extendLastElement(arr: string[], ext: string): void {
   if (arr.length === 0) {
     arr.push(ext);
   } else {
