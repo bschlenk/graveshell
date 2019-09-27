@@ -21,15 +21,17 @@
   ],
   "scripts": {
     "clean": "rm -rf build coverage",
-    "lint": "eslint --ext .ts ./",
+    "lint": "eslint --ext .js,.ts ./src",
     "lint:fix": "npm run lint -- --fix",
     "test:unit": "jest",
-    "test:watch": "npm run jest -- --watch",
+    "test:watch": "jest --watch",
     "test": "npm run lint && npm run test:unit",
     "build": "tsc",
     "prepublishOnly": "npm run test && npm run build"
   },
-  "dependencies": {},
+  "dependencies": {
+    "execa": "^2.0.4"
+  },
   "devDependencies": {
     "@commitlint/cli": "^8.0.0",
     "@commitlint/config-conventional": "^8.0.0",

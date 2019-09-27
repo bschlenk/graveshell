@@ -1,9 +1,10 @@
-export function tag(
-  strings: TemplateStringsArray,
-  ...keys: unknown[]
-): string[] {
-  return processTag(strings, keys);
+export interface TemplateTag {
+  (strings: TemplateStringsArray, ...keys: unknown[]): string[];
 }
+
+export const tag: TemplateTag = (strings, ...keys) => {
+  return processTag(strings, keys);
+};
 
 export function processTag(
   strings: TemplateStringsArray,
